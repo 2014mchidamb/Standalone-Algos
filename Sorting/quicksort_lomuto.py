@@ -4,6 +4,8 @@ See Wikipedia for an overview of the quicksort algorithm:
 
 In this implementation, we use the Lomuto partitioning scheme.
 '''
+import random
+
 def partition(lst, low, high):
     # Selecting middle element is better than selecting last
     # element when list is sorted.
@@ -28,8 +30,16 @@ def quick_sort(lst, low, high):
         quick_sort(lst, low, pivot - 1)
         quick_sort(lst, pivot + 1, high)
 
-input_lst = list(map(float, input("Enter a space-separated list of numbers: ").split()))
-print("Your list: ", input_lst)
+def TEST_QUICK_SORT(num_tests=100):
+    passed_tests = 0
+    for i in range(num_tests):
+        rand_lst = [random.uniform(-1000000, 1000000) for j in range(random.randint(1, 1000))]
+        actual_sorted = sorted(rand_lst)
+        quick_sort(rand_lst, 0, len(rand_lst) - 1)
+        if actual_sorted == rand_lst:
+            passed_tests += 1
+    print("PASSED TESTS: ", passed_tests)
+    print("TOTAL TESTS: ", num_tests)
 
-quick_sort(input_lst, 0, len(input_lst) - 1)
-print("Your list after quicksort: ", input_lst)
+if __name__ == '__main__':
+    TEST_QUICK_SORT()
